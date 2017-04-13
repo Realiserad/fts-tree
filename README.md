@@ -6,7 +6,7 @@ The idea is simple: The edges the Merkle tree are labelled with the amount of co
 
 The image above shows a Merkle tree with eight stakeholders (yellow nodes), controlling a total of 95 coins. The nodes highlighted in green are the nodes visited after an execution of `FTS-TREE` where stakeholder A<sub>4</sub> was chosen as the next block leader.
 
-The path chosen by `FTS-TREE` constitutes a Merkle proof which can be used to prove that the stakeholder was chosen correctly. This Merkle proof can then be put into the block header of the block and other blockchain nodes can use the Merkle root hash of the tree to verify the block.
+The siblings to the nodes traversed by `FTS-TREE` constitutes a Merkle proof which can be used to prove that the stakeholder was chosen correctly. This Merkle proof can then be put into the block header of the block and other blockchain nodes can use the Merkle root hash of the tree to verify the block.
 
 This makes it possible to prune away old transactions and still be able to verify old blocks, enabling a lightweight blockchain scheme based on proof of stake.
 

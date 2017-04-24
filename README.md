@@ -46,7 +46,7 @@ Example output from `FTS-TREE`
 > ...Stakeholder 4 <br/>
 > } <br/>
 > Verifying the result <br/>
-> Checking audit path... 1 0 0 OK! <br/>
+> Building audit path... 1 0 0 OK <br/>
 > Next hash: 3EF21DAF7CB37B8E68929872C4132E9021812CC3DE60A5C4345541728CECCE50 <br/>
 > Next hash: 7333612E8DD6A02C9B0595E27B537851FCB27B44FF25FFBC024BF554C3E9B939 <br/>
 > Next hash: 04CA42FBD140569E6B647B13DDAC3D85B9626FD0B2D98AE6717EBA5B96EB0CCE <br/>

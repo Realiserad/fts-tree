@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * A class containing the result produced by follow-the-satoshi. 
  */
@@ -32,3 +34,4 @@ public class FtsResult {
 		return sb.toString();
 	}
 }
+

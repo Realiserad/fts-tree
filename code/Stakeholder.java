@@ -1,20 +1,16 @@
+import java.nio.charset.StandardCharsets;
+
 /**
- * A stakeholder in the Merkle tree. Each stakeholder contains a name, a number 
- * of coins and an audit path which determines the position of the stakeholder
- * in the stake tree. The audit path is a binary string which should be 
- * interpreted as the position of the leaf node counted from the left. For 
- * example "100" or decimal 4, means the stakeholder is the 4th stakeholder 
- * in the tree.
+ * A stakeholder in the Merkle tree. Each stakeholder has a name,
+ * and controls an amount of coins.
  */
 public class Stakeholder {
 	private final String name;
 	private final int coins;
-	private final String auditPath;
 	
-	public Stakeholder(String name, int coins, String auditPath) {
+	public Stakeholder(String name, int coins) {
 		this.name = name;
 		this.coins = coins;
-		this.auditPath = auditPath;
 	}
 	
 	public String getName() {
@@ -26,16 +22,12 @@ public class Stakeholder {
 	}
 	
 	public byte[] toBytes() {
-		return String.format("%s%d%s", name, coins, auditPath).
+		return String.format("%s%d", name, coins).
 				getBytes(StandardCharsets.US_ASCII);
 	}
 	
 	@Override
 	public String toString() {
 		return name;
-	}
-	
-	public String getAuditPath() {
-		return auditPath;
 	}
 }

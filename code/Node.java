@@ -15,7 +15,7 @@ public class Node {
 	}
 	
 	public Node(Stakeholder stakeholder) {
-		this(null, null, stakeholder, SHA2(stakeholder.toBytes()));
+		this(null, null, stakeholder, Fts.SHA2(stakeholder.toBytes()));
 	}
 	
 	public boolean isLeaf() {

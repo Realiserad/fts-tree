@@ -1,3 +1,5 @@
+import javax.xml.bind.DatatypeConverter;
+
 /**
  * A class containing an entry (x1, x2, hash) in a Merkle proof, where
  * "x1" is the number of coins in the left subtree, "x2" is the number

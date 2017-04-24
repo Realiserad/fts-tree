@@ -17,7 +17,7 @@ public class Fts {
 	 * Computes the message digest SHA2(b1 | b2 | b3 | b4) where
 	 * | denotes concatenation.
 	 */
-	public byte[] SHA2(byte[] b1, byte[] b2, byte[] b3, byte[] b4) {
+	public static byte[] SHA2(byte[] b1, byte[] b2, byte[] b3, byte[] b4) {
 		try {
 			MessageDigest sha2 = MessageDigest.getInstance("SHA-256");
 			byte[] b = new byte[b1.length + b2.length + b3.length + b4.length];
@@ -35,7 +35,7 @@ public class Fts {
 	/**
 	 * Computes the message digest SHA2(b).
 	 */
-	public byte[] SHA2(byte[] b) {
+	public static byte[] SHA2(byte[] b) {
 		try {
 			MessageDigest sha2 = MessageDigest.getInstance("SHA-256");
 			return sha2.digest(b);
@@ -50,9 +50,8 @@ public class Fts {
 		List<Stakeholder> stakeholders = new ArrayList<>();
 		for (int i = 0, c = 20; i < 8; i++, c = c % 2 == 0 ? c / 2 : c*3 + 1) {
 			final String name = String.format("Stakeholder %d", i);
-			final String auditPath = Integer.toBinaryString(i);
 			final int coins = c;
-			stakeholders.add(new Stakeholder(name, coins, auditPath));
+			stakeholders.add(new Stakeholder(name, coins));
 		}
 		// Create the Merkle tree
 		final Node[] tree = createMerkleTree(stakeholders);
@@ -110,7 +109,7 @@ public class Fts {
 	
 	public boolean ftsVerify(Random rng, byte[] merkleRootHash, FtsResult ftsResult) {
 		StringBuilder auditPath = new StringBuilder();
-		System.out.print("Checking audit path... ");
+		System.out.print("Building audit path... ");
 		for (ProofEntry proofEntry : ftsResult.getMerkleProof()) {
 			final int x1 = proofEntry.getLeftBound();
 			final int x2 = proofEntry.getRightBound();
@@ -123,18 +122,14 @@ public class Fts {
 				auditPath.append('1');
 			}
 		}
-		if (!auditPath.toString().equals(ftsResult.getStakeholder().getAuditPath())) {
-			System.out.println(String.format("Not OK! (expected %s)", ftsResult.getStakeholder().getAuditPath()));
-			return false;
-		}
-		System.out.println("OK!");
+		System.out.println("OK");
 		byte[] hx = SHA2(ftsResult.getStakeholder().toBytes());
 		for (int i = ftsResult.getMerkleProof().size() - 1; i >= 0; i--) {
 			final ProofEntry proofEntry = ftsResult.getMerkleProof().get(i);
 			final byte[] x1 = String.valueOf(proofEntry.getLeftBound()).getBytes(StandardCharsets.US_ASCII);
 			final byte[] x2 = String.valueOf(proofEntry.getRightBound()).getBytes(StandardCharsets.US_ASCII);
 			final byte[] hy = proofEntry.getMerkleHash();
-			if (ftsResult.getStakeholder().getAuditPath().charAt(i) == '0') {
+			if (auditPath.charAt(i) == '0') {
 				hx = SHA2(hx, hy, x1, x2);
 			} else {
 				hx = SHA2(hy, hx, x1, x2);

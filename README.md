@@ -2,9 +2,9 @@ This repository contains an implementation of an algorithm called `FTS-TREE` whi
 
 The idea is simple: The edges the Merkle tree are labelled with the amount of coins in the left and right subtree respectively. Given a psuedo-random number generator, one can randomly select a stakeholder from the tree, weighted by the amount of coins they own, by traversing the tree down to a leaf node, containing one of the stakeholders. Each stakeholder controls a number of coins and a private key used to sign blocks.
 
-![An example of a stake tree with eight stakeholders.](http://i67.tinypic.com/2ish75t.jpg)
+![An example of a stake tree with eight stakeholders.](https://raw.githubusercontent.com/Realiserad/fts-tree/master/stake-tree.drawio.png)
 
-The image above shows a Merkle tree with eight stakeholders (yellow nodes), controlling a total of 95 coins. The nodes highlighted in green are the nodes visited after an execution of `FTS-TREE` where stakeholder A<sub>4</sub> was chosen as the next block leader.
+The image above shows a Merkle tree with eight stakeholders, controlling a total of 95 coins. The nodes highlighted are the nodes visited after an execution of `FTS-TREE` where the stakeholder with the blue key was chosen as the next block leader.
 
 The siblings to the nodes traversed by `FTS-TREE` constitutes a Merkle proof which can be used to prove that the stakeholder was chosen correctly. This Merkle proof can then be put into the block header of the block and other blockchain nodes can use the Merkle root hash of the tree to verify the block.
 
